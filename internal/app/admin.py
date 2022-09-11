@@ -4,7 +4,6 @@ from flask_admin.contrib.sqla import ModelView
 
 from internal.config import settings
 from internal.config.database import current_session
-from internal.entity.application import Application
 
 
 def create_app() -> Flask:
@@ -17,6 +16,5 @@ def create_app() -> Flask:
         name='Admin',
         template_mode='bootstrap4',
     )
-    admin.add_view(ModelView(Application, current_session))
 
     return app
