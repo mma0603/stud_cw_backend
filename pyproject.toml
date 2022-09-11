@@ -1,14 +1,14 @@
 [tool.poetry]
-name = "fastapi-clean-architecture"
-version = "0.9.3"
-description = "Clean FastAPI architecture"
+name = "stud-cw-backend"
+version = "0.0.1"
+description = "Stud CourseWork Backend"
 
 license = "MIT"
 
-authors = ["Maxim Bigin <i@flaiers.me>"]
+authors = ["Marsel Muldakaev"]
 
 readme = "README.md"
-repository = "https://github.com/flaiers/fastapi-clean-architecture"
+repository = "https://github.com/mma0603/stud_cw_backend"
 
 
 [tool.poetry.dependencies]
