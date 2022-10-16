@@ -13,12 +13,14 @@ class OrderProduct(Base):
         psql.UUID(as_uuid=True),
         sa.ForeignKey('order.id', ondelete='CASCADE'),
         index=True,
+        primary_key=True,
         nullable=False,
     )
     product_id = sa.Column(
         psql.UUID(as_uuid=True),
         sa.ForeignKey('product.id', ondelete='CASCADE'),
         index=True,
+        primary_key=True,
         nullable=False,
     )
 
