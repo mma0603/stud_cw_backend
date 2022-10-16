@@ -12,10 +12,10 @@ sys.path.append(str(BASE_DIR))
 
 from internal.config import settings  # noqa: E402
 from internal.entity.base import Base  # noqa: E402
-from internal.entity.user import User
-from internal.entity.product.type import ProductType
-from internal.entity.product import Product
-from internal.entity.order import Order
+from internal.entity.order import Order  # noqa: E402
+from internal.entity.product import Product  # noqa: E402
+from internal.entity.product.type import ProductType  # noqa: E402
+from internal.entity.user import User  # noqa: E402
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
