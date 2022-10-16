@@ -61,10 +61,6 @@ migrate-up: ## Upgrade to a later version
 migrate-down: ## Revert to a previous version
 	poetry run alembic downgrade $(revision)
 
-.PHONY: rabbitmq-compose-up
-rabbitmq-compose-up: ## Create and start rabbitmq container
-	docker-compose -f docker/rabbitmq-docker-compose.yml -p rabbitmq --env-file docker/$(ENV_FILE) up -d
-
 .PHONY: compose-build
 compose-build: ## Build or rebuild services
 	docker-compose -f docker/docker-compose.yml --env-file docker/$(ENV_FILE) build
@@ -74,7 +70,7 @@ compose-convert: ## Converts the compose file to platform's canonical format
 	docker-compose -f docker/docker-compose.yml --env-file docker/$(ENV_FILE) convert
 
 .PHONY: compose-up
-compose-up: rabbitmq-compose-up ## Create and start containers
+compose-up: ## Create and start containers
 	docker-compose -f docker/docker-compose.yml --env-file docker/$(ENV_FILE) up -d
 
 .PHONY: compose-logs

@@ -23,6 +23,3 @@ RUN poetry install --no-root --no-dev
 
 # Step 4: Copy Application
 COPY . .
-
-# Step 5: Run Application
-CMD ["make", "run"]

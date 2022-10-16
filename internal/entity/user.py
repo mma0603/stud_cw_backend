@@ -8,15 +8,20 @@ from internal.entity.role import Role
 
 class User(TimestampMixin, Base):
 
-    username = sa.Column(sa.String(100), nullable=False)
+    __table_args__ = (
+        sa.UniqueConstraint('username'),
+        sa.UniqueConstraint('email'),
+    )
+
+    username = sa.Column(sa.String(50), nullable=False)
     password = sa.Column(sa.String(64), nullable=False)
-    email = sa.Column(sa.String(255), nullable=False)
+    email = sa.Column(sa.String(100), nullable=False)
 
     role = sa.Column(
         psql.ENUM(Role, name='role'), default=Role.user, nullable=False,
     )
 
-    first_name = sa.Column(sa.String(100))
-    last_name = sa.Column(sa.String(100))
+    first_name = sa.Column(sa.String(50))
+    last_name = sa.Column(sa.String(50))
 
-    address = sa.Column(sa.Text)
+    address = sa.Column(sa.String(255))

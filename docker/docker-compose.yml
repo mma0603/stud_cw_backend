@@ -2,7 +2,7 @@ version: '3.9'
 services:
 
   db:
-    container_name: fastapi_clean_db
+    container_name: stud_cw_db
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -13,13 +13,14 @@ services:
     ports:
       - ${HOST_DB_PORT}:${DB_PORT}
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - stud_cw_db_data:/var/lib/postgresql/data
 
   migration:
     build:
       context: ..
-      dockerfile: docker/Dockerfile.migration
-    container_name: fastapi_clean_migration
+      dockerfile: docker/Dockerfile
+    container_name: stud_cw_migration
+    entrypoint: ["make", "migrate-up"]
     depends_on:
       - db
     env_file:
@@ -30,8 +31,9 @@ services:
   backend:
     build:
       context: ..
-      dockerfile: docker/Dockerfile.backend
-    container_name: fastapi_clean_backend
+      dockerfile: docker/Dockerfile
+    container_name: stud_cw_backend
+    entrypoint: ["make", "run"]
     depends_on:
       - db
       - migration
@@ -39,7 +41,6 @@ services:
       - ${ENV_FILE}
     networks:
       - network
-      - rabbitmq
     ports:
       - ${HOST_ADMIN_PORT}:${ADMIN_PORT}
       - ${HOST_BACKEND_PORT}:${BACKEND_PORT}
@@ -47,9 +48,6 @@ services:
 networks:
   network:
     driver: bridge
-  rabbitmq:
-    name: rabbitmq
-    external: true
 
 volumes:
-  db_data:
+  stud_cw_db_data:
