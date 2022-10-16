@@ -1,12 +1,6 @@
 from typing import Any, Dict, List
 
-from pydantic import (
-    AmqpDsn,
-    AnyHttpUrl,
-    BaseSettings,
-    PostgresDsn,
-    validator,
-)
+from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
