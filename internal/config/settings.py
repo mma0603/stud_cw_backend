@@ -28,6 +28,10 @@ class Settings(BaseSettings):
         'filter': True,
     }
 
+    SESSION_TIMEDELTA: Dict[str, int] = {
+        'days': 7,
+    }
+
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
 
     @validator('BACKEND_CORS_ORIGINS', pre=True)

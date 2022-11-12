@@ -14,10 +14,10 @@ class BaseUser(BaseModel):
 
     role: Role
 
-    first_name: constr(max_length=50)
-    last_name: constr(max_length=50)
+    first_name: constr(max_length=50) | None
+    last_name: constr(max_length=50) | None
 
-    address: constr(max_length=255)
+    address: constr(max_length=255) | None
 
 
 class UserRead(BaseUser):
