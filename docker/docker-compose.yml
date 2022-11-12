@@ -28,6 +28,17 @@ services:
     networks:
       - network
 
+  redis:
+    container_name: stud_cw_redis
+    image: redis:7-alpine
+    entrypoint: redis-server --requirepass ${REDIS_PASSWORD}
+    networks:
+      - network
+    ports:
+      - ${HOST_REDIS_PORT}:${REDIS_PORT}
+    volumes:
+      - redis_data:/data
+
   backend:
     build:
       context: ..
@@ -51,3 +62,4 @@ networks:
 
 volumes:
   stud_cw_db_data:
+  redis_data:

@@ -35,6 +35,7 @@ def create_app() -> FastAPI:
 
     api.add_pagination(app)
     app.include_router(api_router, prefix=settings.API)
+    app.dependency_overrides.setdefault(*database.override_redis)
     app.dependency_overrides.setdefault(*database.override_session)
 
     app.add_exception_handler(DBAPIError, database_error_handler)

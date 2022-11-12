@@ -1,6 +1,12 @@
 from typing import Any, Dict, List
 
-from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator
+from pydantic import (
+    AnyHttpUrl,
+    BaseSettings,
+    PostgresDsn,
+    RedisDsn,
+    validator,
+)
 
 
 class Settings(BaseSettings):
@@ -20,6 +26,10 @@ class Settings(BaseSettings):
     SWAGGER_UI_PARAMETERS: Dict[str, Any] = {
         'displayRequestDuration': True,
         'filter': True,
+    }
+
+    SESSION_TIMEDELTA: Dict[str, int] = {
+        'days': 7,
     }
 
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
@@ -56,6 +66,26 @@ class Settings(BaseSettings):
             host=values.get('DB_HOST'),
             port=values.get('DB_PORT'),
             path='/{0}'.format(values.get('DB_NAME')),
+        )
+
+    REDIS_HOST: str
+    REDIS_PORT: str
+    REDIS_PASSWORD: str
+    REDIS_SESSION: str = 'session:{0}'
+    REDIS_URI: RedisDsn | None = None
+
+    @validator('REDIS_URI', pre=True)
+    def assemble_redis_connection(
+        cls, value: str | None, values: Dict[str, Any],  # noqa: N805, WPS110
+    ) -> str:
+        if isinstance(value, str):
+            return value
+
+        return RedisDsn.build(
+            scheme='redis',
+            host=values.get('REDIS_HOST'),
+            port=values.get('REDIS_PORT'),
+            password=values.get('REDIS_PASSWORD'),
         )
 
     class Config(object):
