@@ -1,7 +1,5 @@
-from typing import Any, Dict, List, Sequence, Tuple
 from uuid import UUID
 
-import sqlalchemy as sa
 from fastapi import Depends
 from pytorm.repository import InjectRepository
 from sqlalchemy.ext.asyncio import AsyncSession
