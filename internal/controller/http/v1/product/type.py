@@ -39,7 +39,7 @@ async def create_product_type(
     path='/{product_type_id}',
     response_model=ProductTypeRead,
 )
-async def create_product_type(
+async def update_product_type(
     product_type_id: UUID,
     dto: ProductTypeUpdate,
     product_type_service: ProductTypeService = Depends(),

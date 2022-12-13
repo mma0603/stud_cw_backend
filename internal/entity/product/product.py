@@ -24,4 +24,4 @@ class Product(Base):
 
     meta = sa.Column(psql.JSONB, default=dict, nullable=False)
 
-    type = orm.relationship(ProductType)
+    type = orm.relationship(ProductType, lazy='joined')
