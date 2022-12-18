@@ -42,3 +42,15 @@ async def get_request_user(request: Request) -> RequestUser:
         )
 
     return request.user
+
+
+async def get_manager_user(
+    request_user: RequestUser = Depends(get_request_user),
+) -> RequestUser:
+    if not request_user.is_manager:
+        raise HTTPException(
+            detail='Only manager access',
+            status_code=status.HTTP_403_FORBIDDEN,
+        )
+
+    return request_user
