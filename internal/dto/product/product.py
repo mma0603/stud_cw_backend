@@ -1,7 +1,10 @@
-from typing import Dict, Any
+from dataclasses import dataclass
+from typing import Any, Dict
 from uuid import UUID
 
+from fastapi import Query
 from pydantic import BaseModel
+
 from internal.dto.product.type import ProductTypeRead
 
 
@@ -56,3 +59,14 @@ class ProductUpdate(BaseModel):
 
     def dict(self, **kwargs) -> Dict[str, Any]:
         return super().dict(exclude_unset=True, **kwargs)
+
+
+@dataclass
+class ProductFilter(object):
+
+    name: str = Query('')
+
+    cost_min: float = Query(0)
+    cost_max: float = Query(1000000)
+
+    type_id: UUID | None = Query(None)

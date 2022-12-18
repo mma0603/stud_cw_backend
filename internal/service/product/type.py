@@ -5,7 +5,10 @@ from fastapi import Depends
 from pytorm.repository import InjectRepository
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from internal.dto.product.type import ProductTypeCreate, ProductTypeUpdate
+from internal.dto.product.type import (
+    ProductTypeCreate,
+    ProductTypeUpdate,
+)
 from internal.entity.product.type import ProductType
 from internal.usecase.utils import get_session
 

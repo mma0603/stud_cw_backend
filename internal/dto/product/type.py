@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Any, Dict
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -21,7 +21,7 @@ class ProductTypeRead(BaseProductType):
 
 
 class ProductTypeCreate(BaseProductType):
-    pass
+    pass  # noqa: WPS420, WPS604
 
 
 class ProductTypeUpdate(BaseModel):

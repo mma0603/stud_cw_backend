@@ -5,7 +5,11 @@ from fastapi import Depends
 from pytorm.repository import InjectRepository
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from internal.dto.product import ProductCreate, ProductUpdate
+from internal.dto.product import (
+    ProductCreate,
+    ProductFilter,
+    ProductUpdate,
+)
 from internal.entity.product import Product
 from internal.usecase.utils import get_session
 
@@ -18,7 +22,14 @@ class ProductService(object):  # noqa: WPS214
         self.session = session
         self.repository = InjectRepository(Product, session)
 
-    async def find(self, **attrs) -> List[Product]:
+    async def find(self, dto: ProductFilter, **attrs) -> List[Product]:
+        where = {
+            Product.name.ilike('%{0}%'.format(dto.name)),
+            Product.cost.between(dto.cost_min, dto.cost_max),
+        }
+        if dto.type_id is not None:
+            where.add(Product.type_id == dto.type_id)
+
         return await self.repository.find(**attrs)
 
     async def create(self, dto: ProductCreate) -> Product:

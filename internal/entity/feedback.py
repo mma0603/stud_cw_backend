@@ -1,8 +1,10 @@
 import sqlalchemy as sa
+from sqlalchemy import orm
 from sqlalchemy.dialects import postgresql as psql
 
 from internal.entity.base import Base
 from internal.entity.mixin import TimestampMixin
+from internal.entity.user import User
 
 
 class Feedback(TimestampMixin, Base):
@@ -26,3 +28,5 @@ class Feedback(TimestampMixin, Base):
         index=True,
         nullable=False,
     )
+
+    user = orm.relationship(User, lazy='joined')

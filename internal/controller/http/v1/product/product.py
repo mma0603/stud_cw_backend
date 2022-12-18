@@ -1,14 +1,18 @@
 from typing import List
 from uuid import UUID
+
 from fastapi import APIRouter, Depends
 
-from internal.entity.product import Product
-from internal.dto.product import ProductRead, ProductCreate, ProductUpdate
-from internal.dto.user.request import RequestUser
-from internal.service.product import ProductService
-from internal.usecase.utils import (
-    dependencies,
+from internal.dto.product import (
+    ProductCreate,
+    ProductFilter,
+    ProductRead,
+    ProductUpdate,
 )
+from internal.dto.user.request import RequestUser
+from internal.entity.product import Product
+from internal.service.product import ProductService
+from internal.usecase.utils import dependencies
 
 router = APIRouter()
 
@@ -18,9 +22,10 @@ router = APIRouter()
     response_model=List[ProductRead],
 )
 async def read_product(
+    dto: ProductFilter = Depends(),
     product_service: ProductService = Depends(),
 ) -> List[Product]:
-    return await product_service.find()
+    return await product_service.find(dto)
 
 
 @router.post(

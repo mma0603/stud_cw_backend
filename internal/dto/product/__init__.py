@@ -1,1 +1,6 @@
-from .product import ProductRead, ProductCreate, ProductUpdate
+from .product import (
+    ProductCreate,
+    ProductFilter,
+    ProductRead,
+    ProductUpdate,
+)

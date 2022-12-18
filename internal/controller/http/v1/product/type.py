@@ -1,14 +1,17 @@
 from typing import List
 from uuid import UUID
+
 from fastapi import APIRouter, Depends
 
-from internal.entity.product.type import ProductType
-from internal.dto.product.type import ProductTypeRead, ProductTypeCreate, ProductTypeUpdate
-from internal.dto.user.request import RequestUser
-from internal.service.product.type import ProductTypeService
-from internal.usecase.utils import (
-    dependencies,
+from internal.dto.product.type import (
+    ProductTypeCreate,
+    ProductTypeRead,
+    ProductTypeUpdate,
 )
+from internal.dto.user.request import RequestUser
+from internal.entity.product.type import ProductType
+from internal.service.product.type import ProductTypeService
+from internal.usecase.utils import dependencies
 
 router = APIRouter()
 
